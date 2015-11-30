@@ -1,6 +1,6 @@
 #!/bin/bash
 
-which parallel >/dev/null || exit "Please intall GNU Parallel"
+which parallel >/dev/null || exit "Please install GNU Parallel"
 
 [ "`seq 5|parallel echo {} | md5sum | head -c5`" == "a7b1a" ] || { echo "Please install GNU Parallel, not the one provided in 'moreutils'" && exit 1; }
 
