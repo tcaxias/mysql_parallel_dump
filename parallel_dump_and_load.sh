@@ -9,4 +9,5 @@ which parallel >/dev/null || exit "Please install GNU Parallel"
 IN_DB=$1
 OUT_DB=$2
 
-for i in `mysql $1 -e "show tables"` ; do echo $i ; done | parallel 'mysqldump -f --single-transaction --opt --skip-comments --routines' $IN_DB '{} | sed -e "s/\/\*!5001[3,7] DEFINER[ ]*=[ ]*[^*]*\*\///" |  mysql' $OUT_DB '; echo "finished: {}"'
+for i in `mysql --defaults-group-suffix=read $1 -e "show tables"` ; do echo $i ; done | parallel 'mysqldump --defaults-group-suffix=read -f --single-transaction --opt --skip-comments --routines' $IN_DB '{} | sed -e "s/\/\*!5001[3,7] DEFINER[ ]*=[ ]*[^*]*\*\///" |  mysql --defaults-group-suffix=write' $OUT_DB '; echo "finished: {}"'
+
