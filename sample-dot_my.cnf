@@ -1,0 +1,10 @@
+[clientread]
+user=read_user
+password=read_user_password
+host=read_database_host
+
+[clientwrite]
+user=write_user
+password=write_user_password
+host=write_database_host
+
